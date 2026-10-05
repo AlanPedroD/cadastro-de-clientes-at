@@ -1,75 +1,64 @@
-# React + TypeScript + Vite
+# Cadastro de Clientes
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Um programa simples para cadastrar clientes, ver a lista e corrigir os dados quando algo for digitado errado.
 
-Currently, two official plugins are available:
+Feito com **React** e **TypeScript**.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+🔗 **Acesse online:** https://alanpedrod.github.io/cadastro-de-clientes-at/
 
-## React Compiler
+## O que ele faz
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+- Cadastra clientes com nome e e-mail
+- Mostra ou oculta a lista de clientes cadastrados
+- Permite editar um cliente já cadastrado
+- Permite cancelar a edição sem alterar nada
 
-## Expanding the ESLint configuration
+## Como usar
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+**Cadastrar um cliente**
+1. Digite o nome e o e-mail.
+2. Clique em **Cadastrar Cliente**.
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+**Ver os clientes**
+- Clique em **Ver clientes cadastrados**. Para esconder a lista, clique em **Ocultar clientes**.
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
+**Editar um cliente**
+1. Abra a lista de clientes.
+2. Clique em **Editar** na linha do cliente.
+3. Os dados vão aparecer no formulário. Corrija o que precisar.
+4. Clique em **Salvar alterações**. Se desistir, clique em **Cancelar**.
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+## Regras do formulário
 
+- O nome precisa ter pelo menos 3 letras.
+- O nome aceita apenas letras e espaços.
+- O e-mail precisa ser preenchido e ter um formato válido.
+
+## Como rodar o projeto
+
+Você precisa ter o [Node.js](https://nodejs.org) instalado.
+
+```bash
+# 1. Instale as dependências
+npm install
+
+# 2. Inicie o programa
+npm run dev
 ```
 
-You can also install [eslint-plugin-react-x](https://npmx.dev/package/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://npmx.dev/package/eslint-plugin-react-dom) for React-specific lint rules:
+Depois, abra no navegador o endereço que aparecer no terminal (normalmente `http://localhost:5173`).
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+## Tecnologias utilizadas
 
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+- [React](https://react.dev): para construir a interface
+- [TypeScript](https://www.typescriptlang.org): para deixar o código mais seguro
+- [Vite](https://vite.dev): para rodar e montar o projeto
+- CSS: para o visual da página
 
-```
+## Observação
+
+Os clientes ficam guardados apenas enquanto a página está aberta. Se você recarregar ou fechar a página, a lista é apagada.
+
+## Autor
+
+Alan Dias
