@@ -11,6 +11,7 @@ function App() {
   const [emailCliente, setEmailCliente] = useState("")
   const [clientes, setClientes] = useState<Cliente[]>([])
   const [clientesEstaoVisiveis, setClientesEstaoVisiveis] = useState(false)
+  const [indiceEditando, setIndiceEditando] = useState<number | null>(null)
 
   function cadastrarCliente() {
     if (nomeCliente.trim().length < 3 || emailCliente === "") {
@@ -22,21 +23,45 @@ function App() {
       email: emailCliente
     }
 
-    setClientes([...clientes, cliente])
+    if (indiceEditando === null) {
+      setClientes([...clientes, cliente])
+    } else {
+      setClientes(
+        clientes.map((clienteAtual, indice) =>
+          indice === indiceEditando ? cliente : clienteAtual
+        )
+      )
+      setIndiceEditando(null)
+    }
 
     setNomeCliente("")
     setEmailCliente("")
 
     console.log(cliente)
   }
+
+  function editarCliente(indice: number) {
+    setNomeCliente(clientes[indice].nome)
+    setEmailCliente(clientes[indice].email)
+    setIndiceEditando(indice)
+  }
+
+  function cancelarEdicao() {
+    setNomeCliente("")
+    setEmailCliente("")
+    setIndiceEditando(null)
+  }
+
+  function enviarFormulario(evento: React.SubmitEvent<HTMLFormElement>) {
+    evento.preventDefault()
+    cadastrarCliente()
+  }
+
   return (
     <main>
       <h1>Cadastro de Clientes</h1>
 
-      <form onSubmit={(e) => {
-        e.preventDefault() // Evita que a página seja recarregada ao enviar o formulário
-        cadastrarCliente()
-      }}>
+      <form onSubmit={enviarFormulario}>
         <label>Nome do cliente</label>
         <input
           type="text"
@@ -48,7 +73,15 @@ function App() {
         <label>E-mail do cliente</label>
         <input type="email" value={emailCliente} onChange={(e) => setEmailCliente(e.target.value)} />
 
-        <button type="submit">Cadastrar Cliente</button>
+        <button type="submit">
+          {indiceEditando === null ? "Cadastrar Cliente" : "Salvar alterações"}
+        </button>
+
+        {indiceEditando !== null && (
+          <button type="button" onClick={cancelarEdicao}>
+            Cancelar
+          </button>
+        )}
       </form>
 
       <button
@@ -72,14 +105,20 @@ function App() {
                 <tr>
                   <th>Nome</th>
                   <th>E-mail</th>
+                  <th>Ações</th>
                 </tr>
               </thead>
 
               <tbody>
-                {clientes.map((cliente) => (
+                {clientes.map((cliente, indice) => (
                   <tr key={cliente.email}>
                     <td>{cliente.nome}</td>
                     <td>{cliente.email}</td>
+                    <td>
+                      <button type="button" onClick={() => editarCliente(indice)}>
+                        Editar
+                      </button>
+                    </td>
                   </tr>
                 ))}
               </tbody>
@@ -96,18 +135,3 @@ function App() {
 }
 
 export default App
-
-//* O useState é uma ferramenta do React para guardar e controlar informações que podem mudar na tela.
-
-// No nosso cadastro de clientes, por exemplo, o usuário vai digitar:
-
-// Nome: João
-
-// O React precisa guardar esse "João". É aí que usamos o useState.
-//* Um exemplo bem simples:
-//? const [nomeCliente, setNomeCliente] = useState("")
-
-//* Quando o usuário digitar
-// Precisamos avisar ao React:
-// "O usuário digitou alguma coisa. Atualize nomeCliente."
-// Para isso usamos onChange:
