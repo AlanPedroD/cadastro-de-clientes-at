@@ -4,7 +4,9 @@ Um programa simples para cadastrar clientes, ver a lista e corrigir os dados qua
 
 Feito com **React** e **TypeScript**.
 
-🔗 **Acesse online:** https://alanpedrod.github.io/cadastro-de-clientes-at/
+
+🔗 **Acesse online:** [Visualizar projeto](https://alanpedrod.github.io/cadastro-de-clientes-at/)
+
 
 ## O que ele faz
 
